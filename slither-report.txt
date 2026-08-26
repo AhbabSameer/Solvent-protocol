@@ -1,0 +1,105 @@
+'forge clean' running (wd: /Users/ahbabsameer/Documents/Ethereum projects/SolventProtocol)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./test/** ./script/** --force' running (wd: /Users/ahbabsameer/Documents/Ethereum projects/SolventProtocol)
+INFO:Detectors:
+Detector: divide-before-multiply
+SolventEngine._healthFactor(address) (src/SolventEngine.sol#314-324) performs a multiplication on the result of a division:
+	- debtValueUsd = (s_userNormalizedDebt[_user] * _currentBorrowIndex()) / PRECISION (src/SolventEngine.sol#315)
+	- (collateralValueInUsd * LIQUIDATION_THRESHOLD * PRECISION) / (DENOMINATOR * debtValueUsd) (src/SolventEngine.sol#323)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+INFO:Detectors:
+Detector: incorrect-equality
+SolventEngine._accrueInterest() (src/SolventEngine.sol#282-293) uses a dangerous strict equality:
+	- block.timestamp == s_lastAccrualTimestamp (src/SolventEngine.sol#283)
+SolventEngine._currentBorrowIndex() (src/SolventEngine.sol#296-306) uses a dangerous strict equality:
+	- timePassed == 0 (src/SolventEngine.sol#299)
+SolventEngine._healthFactor(address) (src/SolventEngine.sol#314-324) uses a dangerous strict equality:
+	- debtValueUsd == 0 (src/SolventEngine.sol#317)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+INFO:Detectors:
+Detector: unused-return
+SolventEngine._getCollateralPrice() (src/SolventEngine.sol#329-340) ignores return value by (None,price,None,updatedAt,None) = i_priceFeed.latestRoundData() (src/SolventEngine.sol#330)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+INFO:Detectors:
+Detector: shadowing-local
+MockERC20.constructor(string,string)._name (src/mocks/MockERC20.sol#11) shadows:
+	- ERC20._name (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#36) (state variable)
+MockERC20.constructor(string,string)._symbol (src/mocks/MockERC20.sol#11) shadows:
+	- ERC20._symbol (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#37) (state variable)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#local-variable-shadowing
+INFO:Detectors:
+Detector: timestamp
+SolventEngine.borrow(uint256) (src/SolventEngine.sol#138-155) uses timestamp for comparisons
+	Dangerous comparisons:
+	- debtValueUsd > maxBorrowableUsd (src/SolventEngine.sol#149)
+SolventEngine.liquidate(address,uint256) (src/SolventEngine.sol#169-195) uses timestamp for comparisons
+	Dangerous comparisons:
+	- startingHealthFactor >= HEALTH_FACTOR (src/SolventEngine.sol#173)
+SolventEngine._repay(address,address,uint256) (src/SolventEngine.sol#257-269) uses timestamp for comparisons
+	Dangerous comparisons:
+	- _amount > userDebtValueUsd (src/SolventEngine.sol#259)
+SolventEngine._revertIfHealthFactorIsBroken(address) (src/SolventEngine.sol#272-277) uses timestamp for comparisons
+	Dangerous comparisons:
+	- healthFactor < HEALTH_FACTOR (src/SolventEngine.sol#274)
+SolventEngine._accrueInterest() (src/SolventEngine.sol#282-293) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp == s_lastAccrualTimestamp (src/SolventEngine.sol#283)
+SolventEngine._currentBorrowIndex() (src/SolventEngine.sol#296-306) uses timestamp for comparisons
+	Dangerous comparisons:
+	- timePassed == 0 (src/SolventEngine.sol#299)
+SolventEngine._healthFactor(address) (src/SolventEngine.sol#314-324) uses timestamp for comparisons
+	Dangerous comparisons:
+	- debtValueUsd == 0 (src/SolventEngine.sol#317)
+SolventEngine._getCollateralPrice() (src/SolventEngine.sol#329-340) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp - updatedAt > STALENESS_THRESHOLD (src/SolventEngine.sol#335)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Detectors:
+Detector: pragma
+6 different versions of Solidity are used:
+	- Version constraint ^0.8.0 is used by:
+		-^0.8.0 (lib/chainlink-brownie-contracts/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol#2)
+	- Version constraint >=0.6.2 is used by:
+		->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)
+		->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)
+		->=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+	- Version constraint >=0.4.16 is used by:
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)
+	- Version constraint >=0.8.4 is used by:
+		->=0.8.4 (lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)
+	- Version constraint ^0.8.20 is used by:
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Context.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)
+	- Version constraint ^0.8.23 is used by:
+		-^0.8.23 (src/SolventEngine.sol#2)
+		-^0.8.23 (src/interfaces/ISolventEngine.sol#2)
+		-^0.8.23 (src/mocks/MockERC20.sol#2)
+		-^0.8.23 (src/mocks/MockV3Aggregator.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+INFO:Detectors:
+Detector: naming-convention
+Parameter SolventEngine.depositCollateral(uint256)._amount (src/SolventEngine.sol#113) is not in mixedCase
+Parameter SolventEngine.withdrawCollateral(uint256)._amount (src/SolventEngine.sol#123) is not in mixedCase
+Parameter SolventEngine.borrow(uint256)._amount (src/SolventEngine.sol#138) is not in mixedCase
+Parameter SolventEngine.repay(uint256)._amount (src/SolventEngine.sol#159) is not in mixedCase
+Parameter SolventEngine.liquidate(address,uint256)._user (src/SolventEngine.sol#169) is not in mixedCase
+Parameter SolventEngine.liquidate(address,uint256)._debtToCover (src/SolventEngine.sol#169) is not in mixedCase
+Parameter SolventEngine.getHealthFactor(address)._user (src/SolventEngine.sol#203) is not in mixedCase
+Parameter SolventEngine.getAccountCollateralValue(address)._user (src/SolventEngine.sol#209) is not in mixedCase
+Parameter SolventEngine.getAccountDebtValue(address)._user (src/SolventEngine.sol#215) is not in mixedCase
+Parameter SolventEngine.getCollateralBalance(address)._user (src/SolventEngine.sol#221) is not in mixedCase
+Variable SolventEngine.i_decimals (src/SolventEngine.sol#52) is not in mixedCase
+Parameter MockERC20.mint(address,uint256)._to (src/mocks/MockERC20.sol#16) is not in mixedCase
+Parameter MockERC20.mint(address,uint256)._amount (src/mocks/MockERC20.sol#16) is not in mixedCase
+Parameter MockV3Aggregator.updatePrice(int256)._newPrice (src/mocks/MockV3Aggregator.sol#26) is not in mixedCase
+Parameter MockV3Aggregator.getRoundData(uint80)._roundId (src/mocks/MockV3Aggregator.sol#44) is not in mixedCase
+Variable MockV3Aggregator.s_timestamp (src/mocks/MockV3Aggregator.sol#11) is not in mixedCase
+Variable MockV3Aggregator.s_round (src/mocks/MockV3Aggregator.sol#12) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+INFO:Slither:. analyzed (17 contracts with 102 detectors), 33 result(s) found

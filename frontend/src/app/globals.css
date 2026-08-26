@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #050505;
+  --color-bone: #f3f1ea;
+  --color-muted: #8c8c86;
+  --color-accent: #b6ff3c;
+  --color-danger: #ff5c5c;
+  --color-warn: #ffc24b;
+  --color-panel: #101010;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-bone: var(--color-bone);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
+  --color-danger: var(--color-danger);
+  --color-warn: var(--color-warn);
+  --color-panel: var(--color-panel);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-bone);
+}
+
+/* Oversized, tight-tracked hero headline treatment shared across every screen. */
+.display-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.display-section {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.text-numeral {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
