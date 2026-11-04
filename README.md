@@ -31,8 +31,6 @@ Here's the whole flow:
 A live web app connects to the contracts below — connect a wallet on Sepolia (test) ETH and try
 the whole flow with fake tokens.
 
-**Live app:** _add your deployed link here_
-
 There's a "mint test tokens" button built into the app, so you don't need to find or buy anything
 to try it — everything involved is a worthless test asset except the gas you pay in Sepolia ETH
 (also free, from a faucet).
